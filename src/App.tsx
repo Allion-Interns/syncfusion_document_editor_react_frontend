@@ -9,25 +9,10 @@ import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel } fro
 DocumentEditorContainerComponent.Inject(Toolbar);
 
 export default class App extends SampleBase {
-  public container: DocumentEditorContainerComponent | undefined;
-  requestNavigate: (args: any) => void;
+  public container: DocumentEditorContainerComponent = new DocumentEditorContainerComponent({});
 
-  constructor() {
-    super(...arguments);
-    // Add event listener for requestNavigate event to customize hyperlink navigation functionality
-    this.requestNavigate = (args) => {
-        if (args.linkType !== 'Bookmark') {
-            let link = args.navigationLink;
-            if (args.localReference.length > 0) {
-                link += '#' + args.localReference;
-            }
-            //Navigate to the specified URL.
-            window.open(link);
-            args.isHandled = true;
-        }
-    };
-  }
 
+ 
   render() {
 
     let toolItem: CustomToolbarItemModel = {
