@@ -34,7 +34,7 @@ export default class App extends SampleBase {
 
 
     this.container.documentEditor.requestNavigate = (args) => {
-
+      // navigation meth
       if (args.linkType !== 'Bookmark') {
         let link = args.navigationLink;
         if (args.localReference.length > 0) {
@@ -153,7 +153,7 @@ export default class App extends SampleBase {
       this.container.documentEditor.editor.insertHyperlink("http://localhost:3000/d/2", "Go-to-doc-2")
     });
   }
-
+    
   ondoc2Click() {
     let sfdt = `{
   "sections": [
