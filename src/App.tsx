@@ -3,16 +3,17 @@ import logo from './logo.svg'
 import { SampleBase } from './components/TestWordProcess';
 import './App.css'
 import * as React from 'react';
-import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel } from '@syncfusion/ej2-react-documenteditor';
+import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel, CharacterFormatProperties, DocumentEditorComponent, DocumentEditor } from '@syncfusion/ej2-react-documenteditor';
+import { MenuItemModel } from '@syncfusion/ej2-navigations';
 
-
-DocumentEditorContainerComponent.Inject(Toolbar);
+DocumentEditorContainerComponent.Inject(Toolbar, DocumentEditorComponent, DocumentEditor,);
 
 export default class App extends SampleBase {
   public container: DocumentEditorContainerComponent = new DocumentEditorContainerComponent({});
 
   constructor() {
     super(...arguments);
+
     // Add event listener for requestNavigate event to customize hyperlink navigation functionality.
     this.requestNavigate = (args) => {
 
@@ -32,6 +33,12 @@ export default class App extends SampleBase {
 
   public rendereComplete(): void {
 
+    this.container.documentEditor.setDefaultCharacterFormat({ fontFamily: 'Verdana', fontSize: 20 });
+    this.container.documentEditor.openBlank();
+    this.container.documentEditor.spellChecker.languageID = 1033 //LCID of "en-us";
+    this.container.documentEditor.spellChecker.removeUnderline = false;
+    this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion = true;
+    this.container.documentEditor.spellChecker.enableOptimizedSpellCheck = true;
 
     this.container.documentEditor.requestNavigate = (args) => {
       // navigation meth
@@ -50,10 +57,13 @@ export default class App extends SampleBase {
       }
     };
 
+    
+
   }
-
-
-
+  onCreate(): void {
+    // creating Custom Options
+   
+  }
   render() {
 
     let toolItem: CustomToolbarItemModel = {
@@ -99,28 +109,21 @@ export default class App extends SampleBase {
           ref={scope => {
             this.container = scope;
           }}
+          serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
           id="container"
           height={'700px'}
           toolbarItems={items}
-          toolbarClick={this.onToolbarClick.bind(this)}
           enableToolbar={true}
           requestNavigate={this.requestNavigate.bind(this)}
+          enableSpellCheck={true}
+        
         />
       </div>
 
     );
   }
 
-  onToolbarClick = (args: ClickEventArgs): void => {
-    switch (args.item.id) {
-      case "Custom":
-        //Disable image toolbar item.
-        this.container.toolbar.enableItems(4, false);
-        break;
-      default:
-        break;
-    }
-  };
+  
 
   ondoc1Click() {
     let sfdt = `{
@@ -153,7 +156,7 @@ export default class App extends SampleBase {
       this.container.documentEditor.editor.insertHyperlink("http://localhost:3000/d/2", "Go-to-doc-2")
     });
   }
-    
+
   ondoc2Click() {
     let sfdt = `{
   "sections": [
