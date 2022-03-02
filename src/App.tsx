@@ -90,12 +90,12 @@ export default class App extends SampleBase {
 
     // this.container.documentEditor.selection.closeHeaderFooter();
 
-    let a = this.container.documentEditor.serialize();
-    let obj1 = JSON.parse(a);
-    obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[0].blocks[0].inlines[0].text = 'edited line';
-    let s = JSON.stringify(obj1);
-    this.setState({editedDoc: s});
-    this.container.documentEditor.open(s);
+    // let a = this.container.documentEditor.serialize();
+    // let obj1 = JSON.parse(a);
+    // obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[0].blocks[0].inlines[0].text = 'edited line';
+    // let s = JSON.stringify(obj1);
+    // this.setState({editedDoc: s});
+   // this.container.documentEditor.open(s);
   }
 
   render() {
@@ -165,8 +165,16 @@ export default class App extends SampleBase {
     }
   };
 
-  buttonOnclick = () => {
-    let abc = this.container.documentEditor.serialize();
-    console.log(abc)
+  buttonOnclick = async() => {
+    
+    let a  = await this.container.documentEditor.serialize();
+     let obj1 = JSON.parse(a);
+     obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[0].blocks[0].inlines[0].text = 'editedline';
+     let s = JSON.stringify(obj1);
+    this.setState({editedDoc:s});
+    this.container.documentEditor.open(this.state.editedDoc);
   }
+
+
+
 }
