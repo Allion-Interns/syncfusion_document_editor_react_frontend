@@ -5,6 +5,184 @@ import './App.css'
 import * as React from 'react';
 import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel, CharacterFormatProperties, DocumentEditorComponent, DocumentEditor } from '@syncfusion/ej2-react-documenteditor';
 import { MenuItemModel } from '@syncfusion/ej2-navigations';
+import { L10n } from '@syncfusion/ej2-base';
+
+L10n.load({
+  'sv':{
+    "documenteditorcontainer": {
+      "New": "Ny",
+      "Open": "Öppen",
+      "Undo": "Ångra",
+      "Redo": "Göra om",
+      "Image": "Bild",
+      "Table": "Tabell",
+      "Link": "Länk",
+      "Bookmark": "Bokmärke",
+      "Table of Contents": "Innehållsförteckning",
+      "HEADING - - - - 1": "RADNING - - - - 1",
+      "HEADING - - - - 2": "RADNING - - - - 2",
+      "HEADING - - - - 3": "RADNING - - - - 3",
+      "Header": "Rubrik",
+      "Footer": "sidfot",
+      "Page Setup": "Utskriftsformat",
+      "Page Number": "Sidonummer",
+      "Break": "Ha sönder",
+      "Find": "Hitta",
+      "Local Clipboard": "Lokal Urklipp",
+      "Restrict Editing": "Begränsa redigering",
+      "Upload from computer": "Ladda upp från datorn",
+      "By URL": "Med URL",
+      "Page Break": "Sidbrytning",
+      "Section Break": "Avsnitt Break",
+      "Header And Footer": "Header & Footer",
+      "Options": "alternativ",
+      "Levels": "nivåer",
+      "Different First Page": "Olika första sidan",
+      "Different header and footer for odd and even pages": "Olika sidhuvud och sidfot för udda och jämna sidor.",
+      "Different Odd And Even Pages": "Olika udda & jämna sidor",
+      "Different header and footer for first page": "Olika sidhuvud och sidfot för första sidan.",
+      "Position": "Placera",
+      "Header from Top": "Rubrik från toppen",
+      "Footer from Bottom": "Sidfot från botten",
+      "Distance from top of the page to top of the header": "Avstånd från toppen av sidan till toppen av rubriken.",
+      "Distance from bottom of the page to bottom of the footer": "Avstånd från botten av sidan till botten av sidfot.",
+      "Aspect ratio": "Sidförhållande",
+      "W": "W",
+      "H": "H",
+      "Width": "Bredd",
+      "Height": "Höjd",
+      "Text": "Text",
+      "Paragraph": "Paragraf",
+      "Fill": "Fylla",
+      "Fill color": "Fyllnadsfärg",
+      "Border Style": "Gränsstil",
+      "Outside borders": "Yttre gränser",
+      "All borders": "Alla gränser",
+      "Inside borders": "Inre gränser",
+      "Left border": "Vänster gräns",
+      "Inside vertical border": "Inuti vertikal kant",
+      "Right border": "Höger gräns",
+      "Top border": "Övre gränsen",
+      "Inside horizontal border": "Inuti horisontell kant",
+      "Bottom border": "Nedre gränsen",
+      "Border color": "Gräns ​​färg",
+      "Border width": "Gränsbredd",
+      "Cell": "Cell",
+      "Merge cells": "Sammanfoga celler",
+      "Insert Or Delete": "Infoga / radera",
+      "Insert columns to the left": "Sätt in kolumner till vänster",
+      "Insert columns to the right": "Sätt in kolumner till höger",
+      "Insert rows above": "Sätt i raderna ovan",
+      "Insert rows below": "Sätt i raderna nedan",
+      "Delete rows": "Radera rader",
+      "Delete columns": "Radera kolumner",
+      "Cell Margin": "Cellmarginalen",
+      "Top": "Topp",
+      "Bottom": "Botten",
+      "Left": "Vänster",
+      "Right": "Rätt",
+      "Align Text": "Justera text",
+      "Align top": "Rikta in toppen",
+      "Align bottom": "Justera botten",
+      "Align center": "Centrera i linje med",
+      "Number of heading or outline levels to be shown in table of contents": "Antal rubrik- eller konturnivåer som ska visas i innehållsförteckningen.",
+      "Show page numbers": "Visa sidnummer",
+      "Show page numbers in table of contents": "Visa sidnummer i innehållsförteckningen.",
+      "Right align page numbers": "Högerjustera sidnummer",
+      "Right align page numbers in table of contents": "Högerjustera sidnummer i innehållsförteckningen.",
+      "Use hyperlinks": "Använd hyperlänkar",
+      "Use hyperlinks instead of page numbers": "Använd hyperlänkar istället för sidnummer.",
+      "Font": "Font",
+      "Font Size": "Textstorlek",
+      "Font color": "Fontfärg",
+      "Text highlight color": "Text markera färg",
+      "Clear all formatting": "Rensa all formatering",
+      "Bold Tooltip": "Fet (Ctrl + B)",
+      "Italic Tooltip": "Kursiv (Ctrl + I)",
+      "Underline Tooltip": "Understreck (Ctrl + U)",
+      "Strikethrough": "struken",
+      "Superscript Tooltip": "Superscript (Ctrl + Shift ++)",
+      "Subscript Tooltip": "Prenumeration (Ctrl + =)",
+      "Align left Tooltip": "Justera vänster (Ctrl + L)",
+      "Center Tooltip": "Center (Ctrl + E)",
+      "Align right Tooltip": "Justera höger (Ctrl + R)",
+      "Justify Tooltip": "Motivera (Ctrl + J)",
+      "Decrease indent": "Minska indraget",
+      "Increase indent": "Öka indrag",
+      "Line spacing": "Radavstånd",
+      "Bullets": "Bullets",
+      "Numbering": "Numrering",
+      "Styles": "Styles",
+      "Manage Styles": "Hantera stilar",
+      "Page": "Sida",
+      "of": "av",
+      "Fit one page": "Montera en sida",
+      "Spell Check": "Stavnings kontroll",
+      "Underline errors": "Understrek fel",
+      "Fit page width": "Montera sidbredden",
+      "Update": "Uppdatera",
+      "Cancel": "Avbryt",
+      "Insert": "Föra in",
+      "No Border": "Ingen gräns",
+      "Create a new document": "Skapa ett nytt dokument.",
+      "Open a document": "Öppna ett dokument.",
+      "Undo Tooltip": "Ångra den sista handlingen (Ctrl + Z).",
+      "Redo Tooltip": "Gör om den senaste åtgärden (Ctrl + Y).",
+      "Insert inline picture from a file": "Sätt in inbyggd bild från en fil.",
+      "Insert a table into the document": "Sätt i en tabell i dokumentet",
+      "Create Hyperlink": "Skapa en länk i ditt dokument för snabb åtkomst till webbsidor och filer (Ctrl + K).",
+      "Insert a bookmark in a specific place in this document": "Sätt in ett bokmärke på en specifik plats i det här dokumentet.",
+      "Provide an overview of your document by adding a table of contents": "Ge en översikt över ditt dokument genom att lägga till en innehållsförteckning.",
+      "Add or edit the header": "Lägg till eller redigera rubriken.",
+      "Add or edit the footer": "Lägg till eller redigera sidfoten.",
+      "Open the page setup dialog": "Öppna sidinställningsdialogen.",
+      "Add page numbers": "Lägg till sidnummer.",
+      "Find Text": "Hitta text i dokumentet (Ctrl + F).",
+      "Toggle between the internal clipboard and system clipboard": "Växla mellan det interna urklippet och systemklippbordet. </br> Tillgång till systemklippbord via skript nekas på grund av webbläsarnas säkerhetspolicy. Istället </br> 1. Du kan aktivera internt urklipp för att klippa, kopiera och klistra in i komponenten. </br> 2. Du kan använda kortkommandona (Ctrl + X, Ctrl + C och Ctrl + V) för att klippa , kopiera och klistra in med systemklippbordet.",
+      "Current Page Number": "Det aktuella sidnumret i dokumentet. Klicka eller tryck på för att navigera på en specifik sida.",
+      "Read only": "Endast läsning",
+      "Protections": "skydd",
+      "Error in establishing connection with web server": "Fel vid upprättande av anslutning till webbservern",
+      "Single": "Enda",
+      "Double": "Dubbel",
+      "New comment": "Ny kommentar",
+      "Comments": "kommentarer",
+      "Print layout": "Utskriftslayout",
+      "Web layout": "Webblayout",
+      "Text Form": "Textform",
+      "Check Box": "Kryssruta",
+      "DropDown": "Falla ner",
+      "Update Fields": "Uppdatera fält",
+      "Update cross reference fields": "Uppdatera korsreferensfält",
+      "Hide properties pane": "Dölj egenskaper-rutan",
+      "Show properties pane": "Visa fönstret",
+      "Form Fields": "Formfält",
+      "Track Changes": "Håll reda på de ändringar som gjorts i dokumentet",
+      "TrackChanges": "Spåra ändringar",
+      "AllCaps": "AllCaps",
+      "Change case Tooltip": "Ändra ärende",
+      "Insert Footnote": "Infoga fotnot",
+      "Insert Endnote": "Infoga slutnot",
+      "Footnote Tooltip": "Infoga fotnot (Alt + Ctrl + F).",
+      "Endnote Tooltip": "Infoga slutnot (Alt + Ctrl + D).",
+      "UPPERCASE": "VERSAL",
+      "No color": "VERSAL",
+      "Top margin": "Ingen färg",
+      "Bottom margin": "Övre marginal",
+      "Left margin": "Bottenmarginal",
+      "Right margin": "Vänster marginal",
+      "Normal": "Höger marginal",
+      "Heading": "Vanligt",
+      "Heading 1": "Rubrik",
+      "Heading 2": "Rubrik 1",
+      "Heading 3": "Rubrik 2",
+      "Heading 4": "Rubrik 3",
+      "Heading 5": "Rubrik 4",
+      "Heading 6": "Rubrik 5"
+  }
+  }
+})
+
 
 DocumentEditorContainerComponent.Inject(Toolbar, DocumentEditorComponent, DocumentEditor,);
 
@@ -32,7 +210,9 @@ export default class App extends SampleBase {
 
 
   public rendereComplete(): void {
-
+    this.container.documentEditor.spellChecker.languageID = 1033 //LCID of "en-us";
+    this.container.documentEditor.spellChecker.removeUnderline = false;
+    this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion = true;
     // this.container.documentEditor.setDefaultCharacterFormat({ fontFamily: 'Verdana', fontSize: 20 });
     // this.container.documentEditor.openBlank();
 
@@ -67,11 +247,11 @@ export default class App extends SampleBase {
   
           "fontColor": "#2F5496",
   
-          "bold": true,
+          "bold": false,
   
-          "italic": true,
+          "italic": false,
   
-          "underline": "Single"
+          "underline": ""
   
       }
   
@@ -81,10 +261,8 @@ export default class App extends SampleBase {
   
       this.container.documentEditor.editor.applyStyle('New CharacterStyle', true);
 
-    this.container.documentEditor.spellChecker.languageID = 1033 //LCID of "en-us";
-    this.container.documentEditor.spellChecker.removeUnderline = false;
-    this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion = true;
-    this.container.documentEditor.spellChecker.enableOptimizedSpellCheck = true;
+    
+   // this.container.documentEditor.spellChecker.enableOptimizedSpellCheck = true;
 
     this.container.documentEditor.requestNavigate = (args) => {
       // navigation meth
@@ -155,14 +333,14 @@ export default class App extends SampleBase {
           ref={scope => {
             this.container = scope;
           }}
-          serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
+          serviceUrl="https://localhost:44361/api/DocumentEditor/"
           id="container"
           height={'700px'}
           toolbarItems={items}
           enableToolbar={true}
           requestNavigate={this.requestNavigate.bind(this)}
           enableSpellCheck={true}
-        
+         // locale='sv' 
         />
       </div>
 
@@ -202,7 +380,7 @@ export default class App extends SampleBase {
       this.container.documentEditor.editor.insertHyperlink("http://localhost:3000/d/2", "Go-to-doc-2")
     });
 
-    document.getElementById("button").style.background='#000000';
+  //  document.getElementById("button").style.background='#000000';
   }
 
   ondoc2Click() {
