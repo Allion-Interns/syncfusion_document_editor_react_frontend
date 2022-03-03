@@ -1,6 +1,6 @@
 import { SampleBase } from './TestWordProcess';
 import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel, SfdtExport, DocumentEditorKeyDownEventArgs } from '@syncfusion/ej2-react-documenteditor';
-import { InitialDocumentTemplate } from '../templates/InitialDocument';
+import { InitialDocumentTemplate, InitialDocumentTemplateWithImage } from '../templates/InitialDocument';
 
 
 DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport);
@@ -64,9 +64,17 @@ export default class SyncfusionEditor extends SampleBase {
 
   public async rendereComplete(): Promise<void> {
     // this.overrideSaveFunction(this.container);
-    let initialDoc = InitialDocumentTemplate;
+    let initialDoc = InitialDocumentTemplateWithImage;
     await this.setState({ initialDoc: initialDoc });
     await this.container.documentEditor.open(initialDoc);
+
+    //this.container.documentEditor.editor.insertTable();
+
+   // this.container.documentEditor.editor.insertText('1 1');
+   // this.container.documentEditor.editor.insertColumn();
+   // this.container.documentEditor.editor.insertImage('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');
+   // this.container.documentEditor.editor.insertColumn();
+  //  this.container.documentEditor.editor.insertText('1 3 ');
 
   }
 
@@ -109,6 +117,7 @@ export default class SyncfusionEditor extends SampleBase {
     return (
       <div>
         <button id='export' onClick={this.buttonOnclick} >save </button>
+        <button id='Hide' onClick={this.buttonHideClick} >Hide </button>
         <DocumentEditorContainerComponent
           ref={scope => {
             this.container = scope;
@@ -154,6 +163,22 @@ export default class SyncfusionEditor extends SampleBase {
     this.container.documentEditor.open(this.state.editedDoc);
 
     this.container.documentEditor.save('sample', 'Sfdt');
+  }
+
+  buttonHideClick = async () => {
+    this.container.documentEditor.enableHeaderAndFooter = false;
+
+    // if (this.container.documentEditor.selection.contextType.indexOf("Header") >= 0 || this.container.documentEditor.selection.contextType.indexOf("Footer") >= 0) {
+
+    //   //  this.container.restrictEditing = true;
+    //   this.container.documentEditor.enableHeaderAndFooter = true;
+
+    // } else {
+
+    //   //this.container.restrictEditing = false;
+    //   this.container.documentEditor.enableHeaderAndFooter = false;
+
+    // }
   }
 
 }
