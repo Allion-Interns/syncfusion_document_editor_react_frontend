@@ -1,6 +1,7 @@
 import { SampleBase } from './TestWordProcess';
 import { DocumentEditorContainerComponent, Toolbar, CustomToolbarItemModel, SfdtExport, DocumentEditorKeyDownEventArgs } from '@syncfusion/ej2-react-documenteditor';
 import { InitialDocumentTemplate, InitialDocumentTemplateWithImage } from '../templates/InitialDocument';
+import { FindandReplacebuttonClick } from './methodImplement';
 
 
 DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport);
@@ -10,7 +11,8 @@ export default class SyncfusionEditor extends SampleBase {
     super(props);
     this.state = {
       initialDoc: '',
-      editedDoc: ''
+      editedDoc: '',
+      isDocRestricted: false
 
     };
   }
@@ -30,52 +32,14 @@ export default class SyncfusionEditor extends SampleBase {
     this.container.documentEditor.selection.select(startOffset, startOffset);
   }
 
-  // public overrideSaveFunction(a:DocumentEditorContainerComponent):void{
-  //   this.container.documentEditor.keyDown = async function (args: DocumentEditorKeyDownEventArgs) {
-  //     let keyCode: number = args.event.which || args.event.keyCode;
 
-  //     let isCtrlKey: boolean = (args.event.ctrlKey || args.event.metaKey) ? true : ((keyCode === 17) ? true : false);
-
-  //     let isAltKey: boolean = args.event.altKey ? args.event.altKey : ((keyCode === 18) ? true : false);
-
-  //    //83 is the character code for 'S'
-  //     if (isCtrlKey && !isAltKey && keyCode === 83) {
-  //         //To prevent default save operation, set the isHandled property to true
-  //         let as  = await a.container.documentEditor.serialize();
-  //         let obj1 = JSON.parse(a);
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[0].blocks[0].inlines[0].text = 'row 1 column 1'; 
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[1].blocks[0].inlines[0].text = 'row 1 column 2';
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[2].blocks[0].inlines[0].text = 'row 1 column 3';
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[0].blocks[0].inlines[0].text = 'row 2 column 1';
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[1].blocks[0].inlines[0].text = 'row 2 column 2';
-  //         obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[2].blocks[0].inlines[0].text = 'row 2 column 3';
-
-
-  //         obj1.sections[0].headersFooters.footer.blocks[0].rows[1].cells[2].blocks[0].inlines[0].text = 'footer row 2 column 3';
-  //         let s = JSON.stringify(obj1);
-  //        a.setState({editedDoc:s});
-  //        a.container.documentEditor.open(this.state.editedDoc);
-
-  //        a.container.documentEditor.save('sample', 'Sfdt');
-  //     } 
-  //   };
-
-  // }
 
   public async rendereComplete(): Promise<void> {
-    // this.overrideSaveFunction(this.container);
+
     let initialDoc = InitialDocumentTemplateWithImage;
     await this.setState({ initialDoc: initialDoc });
     await this.container.documentEditor.open(initialDoc);
-
-    //this.container.documentEditor.editor.insertTable();
-
-   // this.container.documentEditor.editor.insertText('1 1');
-   // this.container.documentEditor.editor.insertColumn();
-   // this.container.documentEditor.editor.insertImage('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');
-   // this.container.documentEditor.editor.insertColumn();
-  //  this.container.documentEditor.editor.insertText('1 3 ');
-
+    // await this.container.documentEditor.openBlank();
   }
 
   render() {
@@ -102,8 +66,6 @@ export default class SyncfusionEditor extends SampleBase {
       "Comments",
       "TableOfContents",
       "Separator",
-      "Header",
-      "Footer",
       "PageSetup",
       "PageNumber",
       "Break",
@@ -111,23 +73,25 @@ export default class SyncfusionEditor extends SampleBase {
       "Find",
       "Separator",
       "LocalClipboard",
-      "RestrictEditing"
+
     ];
 
     return (
       <div>
-        <button id='export' onClick={this.buttonOnclick} >save </button>
-        <button id='Hide' onClick={this.buttonHideClick} >Hide </button>
+        <button id='export' onClick={this.Savebuttonclick} >Save </button>
+        <button id='readonlymode' onClick={this.setDocumentReadonly} >Read Only Mode </button>
+        <button id='Find' onClick={this.FindandReplaceClick} >Customize Header </button>
         <DocumentEditorContainerComponent
           ref={scope => {
             this.container = scope;
           }}
           id="container"
-          height={'700px'}
+          height={'1250px'}
           toolbarItems={items}
           toolbarClick={this.onToolbarClick.bind(this)}
           serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
           enableToolbar={true}
+          selectionChange={this.onSelectionChange.bind(this)}
         />
       </div>
     );
@@ -137,7 +101,6 @@ export default class SyncfusionEditor extends SampleBase {
   onToolbarClick = (args: any): void => {
     switch (args.item.id) {
       case "Custom":
-        //Disable image toolbar item.
         this.container.toolbar.enableItems(4, false);
         break;
       default:
@@ -145,14 +108,11 @@ export default class SyncfusionEditor extends SampleBase {
     }
   };
 
-  buttonOnclick = async () => {
+  Savebuttonclick = async () => {
 
     let a = await this.container.documentEditor.serialize();
     let obj1 = JSON.parse(a);
     obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[0].blocks[0].inlines[0].text = 'row 1 column 1';
-    obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[1].blocks[0].inlines[0].text = 'row 1 column 2';
-    obj1.sections[0].headersFooters.header.blocks[0].rows[0].cells[2].blocks[0].inlines[0].text = 'row 1 column 3';
-    obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[0].blocks[0].inlines[0].text = 'row 2 column 1';
     obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[1].blocks[0].inlines[0].text = 'row 2 column 2';
     obj1.sections[0].headersFooters.header.blocks[0].rows[1].cells[2].blocks[0].inlines[0].text = 'row 2 column 3';
 
@@ -161,24 +121,38 @@ export default class SyncfusionEditor extends SampleBase {
     let s = JSON.stringify(obj1);
     this.setState({ editedDoc: s });
     this.container.documentEditor.open(this.state.editedDoc);
-
     this.container.documentEditor.save('sample', 'Sfdt');
   }
 
-  buttonHideClick = async () => {
-    this.container.documentEditor.enableHeaderAndFooter = false;
 
-    // if (this.container.documentEditor.selection.contextType.indexOf("Header") >= 0 || this.container.documentEditor.selection.contextType.indexOf("Footer") >= 0) {
+  setDocumentReadonly = async () => {
 
-    //   //  this.container.restrictEditing = true;
-    //   this.container.documentEditor.enableHeaderAndFooter = true;
-
-    // } else {
-
-    //   //this.container.restrictEditing = false;
-    //   this.container.documentEditor.enableHeaderAndFooter = false;
-
-    // }
+    if (this.container.documentEditor.isReadOnly) {
+      this.container.restrictEditing = false;
+      this.setState({ isDocRestricted: false });
+    }
+    else {
+      this.container.restrictEditing = true;
+      this.setState({ isDocRestricted: true });
+    }
   }
+
+  onSelectionChange(): void {
+    if (this.state.isDocRestricted) { }
+    else if (this.container.documentEditor.selection.contextType.indexOf("Header") >= 0 || this.container.documentEditor.selection.contextType.indexOf("Footer") >= 0) {
+      console.log('header', this.container.documentEditor.selection.contextType.indexOf("Header"), 'footer', this.container.documentEditor.selection.contextType.indexOf("Footer"))
+      this.container.documentEditor.enableHeaderAndFooter = false;
+      this.container.restrictEditing = true;
+    }
+    else {
+      this.container.restrictEditing = false;
+    }
+  }
+
+
+  FindandReplaceClick = async () => {
+    FindandReplacebuttonClick(this.container);
+  }
+
 
 }
