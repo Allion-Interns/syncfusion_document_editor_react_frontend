@@ -5,6 +5,7 @@ import * as React from 'react';
             /**custom render complete function */
         }
         componentDidMount() {
+            
             setTimeout(() => {
             this.rendereComplete();
         });
