@@ -291,7 +291,7 @@ export default class SyncfusionEditor extends SampleBase {
     };
 
     let items = [
-      toolItem,
+     // toolItem,
       'New',
       'Open',
       'Separator',
