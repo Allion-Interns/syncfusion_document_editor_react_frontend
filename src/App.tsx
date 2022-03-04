@@ -191,6 +191,10 @@ export default class App extends SampleBase {
 
   constructor() {
     super(...arguments);
+    this.state={
+       setlocal:false,
+       setlanguage:false
+    }
 
     // Add event listener for requestNavigate event to customize hyperlink navigation functionality.
     this.requestNavigate = (args) => {
@@ -288,16 +292,21 @@ export default class App extends SampleBase {
     // creating Custom Options
    
   }
+
+
   render() {
 
     let toolItem: CustomToolbarItemModel = {
-      prefixIcon: "e-de-ctnr-lock",
-      tooltipText: "Disable Image",
-      text: "Disable Image",
+      prefixIcon: "e-icons e-settings",
+      tooltipText: "Change Language",
+      text: this.state.setlocal?"English":"Svenska",
       id: "Custom"
     };
 
+    
+
     let items = [
+     
       toolItem,
       'New',
       'Open',
@@ -324,6 +333,17 @@ export default class App extends SampleBase {
       "RestrictEditing"
     ];
 
+    if(!this.state.setlanguage){
+      return(
+        <div>
+          
+          <button onClick={this.languagechangeClick.bind(this)} >Swedesh</button>
+          <button onClick={this.languagechangeClickEnglish.bind(this)} >English</button>
+
+        </div>
+      )
+    }
+
     return (
       <div>
         <button id='button'  onClick={this.ondoc1Click.bind(this)}>Doc 1</button>
@@ -340,7 +360,8 @@ export default class App extends SampleBase {
           enableToolbar={true}
           requestNavigate={this.requestNavigate.bind(this)}
           enableSpellCheck={true}
-         // locale='sv' 
+          locale={this.state.setlocal?"sv":""} 
+         toolbarClick={this.onToolbarClick.bind(this)}
         />
       </div>
 
@@ -413,5 +434,27 @@ export default class App extends SampleBase {
     });
   }
 
+  onToolbarClick = (args: ClickEventArgs): void => {
+    switch (args.item.id) {
+        case "Custom":
+            //Disable image toolbar item.
+           // this.container.toolbar.enableItems(4, false);
+           this.setState({setlocal:!this.state.setlocal});
+           
+           
+            break;
+        default:
+            break;
+    }
+}
+
+languagechangeClick() {
+  this.setState({setlocal:!this.state.setlocal});
+  this.setState({setlanguage:true});
+}
+languagechangeClickEnglish() {
+  this.setState({setlocal:this.state.setlocal});
+  this.setState({setlanguage:true});
+}
 
 }
