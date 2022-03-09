@@ -4,7 +4,7 @@ import {
   Toolbar,
   CustomToolbarItemModel,
   SfdtExport,
-  Editor
+  Editor,
 } from "@syncfusion/ej2-react-documenteditor";
 import {
   InitialDocumentTemplate,
@@ -13,7 +13,6 @@ import {
 import { FindandReplacebuttonClick } from "./methodImplement";
 import { L10n } from "@syncfusion/ej2-base";
 import SearchedDocsList from "./SearchedDocsList";
-
 
 L10n.load({
   sv: {
@@ -219,10 +218,9 @@ export default class SyncfusionEditor extends SampleBase {
       isDocRestricted: false,
       setlocal: false,
       setlanguage: false,
-
-      documentsToSearch:[''],
-      searchText:'',
-      isPopupShow:false
+      documentsToSearch: [""],
+      searchText: "",
+      isPopupShow: false,
     };
 
     // Add event listener for requestNavigate event to customize hyperlink navigation functionality.
@@ -240,17 +238,15 @@ export default class SyncfusionEditor extends SampleBase {
     };
   }
 
-
   public async rendereComplete(): Promise<void> {
-    
     this.container.documentEditor.spellChecker.languageID = 1033; //LCID of "en-us";
     this.container.documentEditor.spellChecker.removeUnderline = false;
-    this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion = true;
+    this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion =
+      true;
 
     let initialDoc = InitialDocumentTemplateWithImage;
     await this.setState({ initialDoc: initialDoc });
     await this.container.documentEditor.open(initialDoc);
-
 
     let styleJson: any = {
       type: "Character",
@@ -293,17 +289,15 @@ export default class SyncfusionEditor extends SampleBase {
           this.ondoc2Click();
         }
       }
-    }
-
+    };
   }
 
   searchWord() {
     //Open options pane.
     //this.container.documentEditor.showOptionsPane();
-   this.container.documentEditor.search.findAll("vijitha");
-   this.showPopupDocumentList();
-}
-
+    this.container.documentEditor.search.findAll("lorem");
+    this.showPopupDocumentList();
+  }
 
   render() {
     let toolItem: CustomToolbarItemModel = {
@@ -337,10 +331,8 @@ export default class SyncfusionEditor extends SampleBase {
       "LocalClipboard",
     ];
 
-
     return (
       <div>
-
         <button id="export" onClick={this.Savebuttonclick}>
           Save{" "}
         </button>
@@ -355,35 +347,38 @@ export default class SyncfusionEditor extends SampleBase {
           Doc 1
         </button>
         <button onClick={this.ondoc2Click.bind(this)}>Doc 2</button>
-<br />
-<br />
-          <input type="text" />
-          <button onClick={this.searchWord.bind(this)}> Search</button>
-
-          <div id="searchlist" style={{display:"none"}}>
-
-          <button onClick={this.hidePopupDocumentList}>Hide List</button>
-          <SearchedDocsList/>
-          </div>
-
-        <DocumentEditorContainerComponent
-          ref={(scope) => {
-            this.container = scope;
-          }}
-          id="container"
-          height={"90vh"}
-          toolbarItems={items}
-          toolbarClick={this.onToolbarClick.bind(this)}
-          //serviceUrl="https://localhost:44361/api/DocumentEditor/"
-          serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
-          enableToolbar={true}
-          selectionChange={this.onSelectionChange.bind(this)}
-          requestNavigate={this.requestNavigate.bind(this)}
-          enableSpellCheck={true}
-          locale={this.props.language ? "sv" : ""}
+        <br />
+        <br />
+        <input
+          type="text"
+          value={this.state.searchText}
+          onChange={(e) => this.setState({ searchText: e.target.value })}
         />
-<div>
-      </div>
+
+        <button onClick={this.searchWord.bind(this)}> Search</button>
+        <button onClick={this.hidePopupDocumentList}>Hide List</button>
+
+        <div style={{ display: "flex" }}>
+          <div id="searchlist" style={{ display: "none" }}>
+            <SearchedDocsList text={this.state.searchText} container = {this.container}/>
+          </div>
+            <DocumentEditorContainerComponent
+              ref={(scope) => {
+                this.container = scope;
+              }}
+              id="container"
+              height={"90vh"}
+              toolbarItems={items}
+              toolbarClick={this.onToolbarClick.bind(this)}
+              //serviceUrl="https://localhost:44361/api/DocumentEditor/"
+              serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
+              enableToolbar={true}
+              selectionChange={this.onSelectionChange.bind(this)}
+              requestNavigate={this.requestNavigate.bind(this)}
+              enableSpellCheck={true}
+              locale={this.props.language ? "sv" : ""}
+            />
+        </div>
       </div>
     );
   }
@@ -394,7 +389,6 @@ export default class SyncfusionEditor extends SampleBase {
         //Disable image toolbar item.
         // this.container.toolbar.enableItems(4, false);
         this.setState({ setlocal: !this.state.setlocal });
-
         break;
       default:
         break;
@@ -428,6 +422,7 @@ export default class SyncfusionEditor extends SampleBase {
       "footer row 2 column 3";
     let s = JSON.stringify(obj1);
     this.setState({ editedDoc: s });
+
     this.container.documentEditor.open(this.state.editedDoc);
     this.container.documentEditor.save("sample", "Sfdt");
   };
@@ -441,9 +436,6 @@ export default class SyncfusionEditor extends SampleBase {
       this.setState({ isDocRestricted: true });
     }
   };
-
-
-
 
   onSelectionChange(): void {
     if (this.state.isDocRestricted) {
@@ -497,13 +489,12 @@ export default class SyncfusionEditor extends SampleBase {
 
     setTimeout(() => {
       //Open the document in Document Editor.
-    //  this.container.documentEditor.showOptionsPane();
+      //  this.container.documentEditor.showOptionsPane();
       this.container.documentEditor.open(sfdt);
       this.container.documentEditor.editor.insertHyperlink(
         "http://localhost:3000/d/2",
         "Go-to-doc-2"
       );
-     
     });
 
     //  document.getElementById("button").style.background='#000000';
@@ -543,16 +534,14 @@ export default class SyncfusionEditor extends SampleBase {
   }
 
   showPopupDocumentList(): void {
-   let elmnt = document.getElementById("searchlist");
-    elmnt.style.display = "block" ;
-    this.setState({isPopupShow:false})
+    let elmnt = document.getElementById("searchlist");
+    elmnt.style.display = "block";
+    this.setState({ isPopupShow: false });
   }
   hidePopupDocumentList(): void {
-   let elmnt = document.getElementById("searchlist");
-    elmnt.style.display = "none" ;
-    this.setState({isPopupShow:false})
+    let elmnt = document.getElementById("searchlist");
+    elmnt.style.display = "none";
+    this.setState({ isPopupShow: false });
   }
-
-
 
 }
