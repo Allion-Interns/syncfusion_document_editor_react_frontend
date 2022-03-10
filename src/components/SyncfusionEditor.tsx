@@ -542,6 +542,8 @@ export default class SyncfusionEditor extends SampleBase {
     let elmnt = document.getElementById("searchlist");
     elmnt.style.display = "none";
     this.setState({ isPopupShow: false });
+    this.container.documentEditor.showOptionsPane();
+    this.container.documentEditor.search.clearSearchHighlight();
   }
 
 }

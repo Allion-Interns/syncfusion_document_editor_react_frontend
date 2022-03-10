@@ -49,6 +49,9 @@ class SearchedDocsList extends React.Component<MyProps> {
   console.log(InitialDocumentTemplateWithImage )
   this.props.container.documentEditor.open(findTestDoc);
   this.props.container.documentEditor.search.findAll("vijitha");
+  this.props.container.documentEditor.showOptionsPane();
+  document.getElementById('container_editor_search-icon')?.click();
+
   };
 
 
