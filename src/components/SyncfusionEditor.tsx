@@ -370,8 +370,8 @@ export default class SyncfusionEditor extends SampleBase {
               height={"90vh"}
               toolbarItems={items}
               toolbarClick={this.onToolbarClick.bind(this)}
-              //serviceUrl="https://localhost:44361/api/DocumentEditor/"
-              serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
+              serviceUrl="https://localhost:44361/api/DocumentEditor/"
+              //serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
               enableToolbar={true}
               selectionChange={this.onSelectionChange.bind(this)}
               requestNavigate={this.requestNavigate.bind(this)}
