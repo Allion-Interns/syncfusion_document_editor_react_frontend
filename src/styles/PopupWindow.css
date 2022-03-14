@@ -1,0 +1,18 @@
+.modal {
+    width: 9rem;
+    height: 90vh;
+    background-color: rgba(0, 0, 0, 0.25);
+    overflow:hide;
+  }
+  
+
+  .close {
+    color: Black;
+    float: right;
+  }
+  
+  .close:hover {
+    color: cyan;
+    cursor: pointer;
+  }
+  

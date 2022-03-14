@@ -8,7 +8,4 @@ export const FindandReplacebuttonClick = async (container: DocumentEditorContain
   await container.documentEditor.search.findAll('##CustomerAddress##', 'None');
   await container.documentEditor.search.searchResults.replaceAll("NO 52, main street, colombo ");
   await container.documentEditor.search.searchResults.clear();
-
 }
-
-
