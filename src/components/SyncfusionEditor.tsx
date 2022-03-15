@@ -7,12 +7,15 @@ import {
   Editor,
 } from "@syncfusion/ej2-react-documenteditor";
 import {
+  findTestDoc,
   InitialDocumentTemplate,
   InitialDocumentTemplateWithImage,
+  tbContentDoc,
 } from "../templates/InitialDocument";
 import { FindandReplacebuttonClick } from "./methodImplement";
 import { L10n } from "@syncfusion/ej2-base";
 import SearchedDocsList from "./SearchedDocsList";
+import { getAllDocuments } from "../services/TabelOfContentService";
 
 L10n.load({
   sv: {
@@ -221,6 +224,7 @@ export default class SyncfusionEditor extends SampleBase {
       documentsToSearch: [""],
       searchText: "",
       isPopupShow: false,
+      allDocs:[]
     };
 
     // Add event listener for requestNavigate event to customize hyperlink navigation functionality.
@@ -346,7 +350,11 @@ export default class SyncfusionEditor extends SampleBase {
         <button id="button" onClick={this.ondoc1Click.bind(this)}>
           Doc 1
         </button>
+        
         <button onClick={this.ondoc2Click.bind(this)}>Doc 2</button>
+        <button onClick={this.loadTableofContentDocument.bind(this)}>
+         table of content
+        </button>
         <br />
         <br />
         <input
@@ -546,4 +554,30 @@ export default class SyncfusionEditor extends SampleBase {
     this.container.documentEditor.search.clearSearchHighlight();
   }
 
+
+  loadTableofContentDocument =()=>{
+    getAllDocuments().then((res) => {
+      this.setState({ allDocs: res.data });
+      console.log(res.data);
+    });
+
+    setTimeout(() => {
+      this.container.documentEditor.open(tbContentDoc);
+
+      this.state.allDocs.map((data:string, index:number)=>{
+
+        this.container.documentEditor.editor.insertText("\r\r");
+        this.container.documentEditor.editor.insertText(`${index+1}`+ "\t");
+
+        this.container.documentEditor.editor.insertHyperlink(
+          `${data.path}`,
+          `${data.name}`
+        );
+
+      })
+    });
+  }
 }
+
+}
+

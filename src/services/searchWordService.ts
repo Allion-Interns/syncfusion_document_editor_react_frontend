@@ -14,7 +14,7 @@ export const getDocuments = async (txt :string) => {
     });
 };
 
-export const getDocument = async (path :string) => {
+export const getDocument = async (txt:string) => {
     return await axios({
         method: 'get',
         url: api + `/${txt}`,

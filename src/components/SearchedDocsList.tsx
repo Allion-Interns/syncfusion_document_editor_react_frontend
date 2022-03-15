@@ -9,7 +9,7 @@ import {
 import { SampleBase } from "./SampleBase";
 import { findTestDoc, InitialDocumentTemplate, InitialDocumentTemplateWithImage } from "../templates/InitialDocument";
 
-DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport);
+//DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport);
 
 
 type MyProps = {
@@ -46,12 +46,11 @@ class SearchedDocsList extends React.Component<MyProps> {
     //   console.log(res.data);
     //   this.setState({ selectdDoc: res.data });
     // });
-  console.log(InitialDocumentTemplateWithImage )
+ // console.log(InitialDocumentTemplateWithImage )
   this.props.container.documentEditor.open(findTestDoc);
   this.props.container.documentEditor.search.findAll("vijitha");
   this.props.container.documentEditor.showOptionsPane();
   document.getElementById('container_editor_search-icon')?.click();
-
   };
 
 
