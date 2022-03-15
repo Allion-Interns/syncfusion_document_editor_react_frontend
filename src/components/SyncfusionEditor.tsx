@@ -579,5 +579,5 @@ export default class SyncfusionEditor extends SampleBase {
   }
 }
 
-}
+
 
