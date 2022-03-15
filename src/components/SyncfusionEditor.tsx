@@ -243,7 +243,7 @@ export default class SyncfusionEditor extends SampleBase {
   }
 
   public async rendereComplete(): Promise<void> {
-    this.container.documentEditor.spellChecker.languageID = 1033; //LCID of "en-us";
+    this.container.documentEditor.spellChecker.languageID = this.props.language ? 1053 : 1033; //LCID of "en-us";
     this.container.documentEditor.spellChecker.removeUnderline = false;
     this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion =
       true;
@@ -368,24 +368,24 @@ export default class SyncfusionEditor extends SampleBase {
 
         <div style={{ display: "flex" }}>
           <div id="searchlist" style={{ display: "none" }}>
-            <SearchedDocsList text={this.state.searchText} container = {this.container}/>
+            <SearchedDocsList text={this.state.searchText} container={this.container} />
           </div>
-            <DocumentEditorContainerComponent
-              ref={(scope) => {
-                this.container = scope;
-              }}
-              id="container"
-              height={"90vh"}
-              toolbarItems={items}
-              toolbarClick={this.onToolbarClick.bind(this)}
-              //serviceUrl="https://localhost:44361/api/DocumentEditor/"
-              serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
-              enableToolbar={true}
-              selectionChange={this.onSelectionChange.bind(this)}
-              requestNavigate={this.requestNavigate.bind(this)}
-              enableSpellCheck={true}
-              locale={this.props.language ? "sv" : ""}
-            />
+          <DocumentEditorContainerComponent
+            ref={(scope) => {
+              this.container = scope;
+            }}
+            id="container"
+            height={"90vh"}
+            toolbarItems={items}
+            toolbarClick={this.onToolbarClick.bind(this)}
+            serviceUrl="https://localhost:44361/api/DocumentEditor/"
+            //serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
+            enableToolbar={true}
+            selectionChange={this.onSelectionChange.bind(this)}
+            requestNavigate={this.requestNavigate.bind(this)}
+            enableSpellCheck={true}
+            locale={this.props.language ? "sv" : ""}
+          />
         </div>
       </div>
     );
@@ -449,7 +449,7 @@ export default class SyncfusionEditor extends SampleBase {
     if (this.state.isDocRestricted) {
     } else if (
       this.container.documentEditor.selection.contextType.indexOf("Header") >=
-        0 ||
+      0 ||
       this.container.documentEditor.selection.contextType.indexOf("Footer") >= 0
     ) {
       console.log(
@@ -554,11 +554,8 @@ export default class SyncfusionEditor extends SampleBase {
     this.container.documentEditor.search.clearSearchHighlight();
   }
 
-///////////////load table of content//////////////////////
+
   loadTableofContentDocument =()=>{
-
-    debugger
-
     getAllDocuments().then((res) => {
       this.setState({ allDocs: res.data });
       console.log(res.data);
@@ -581,3 +578,6 @@ export default class SyncfusionEditor extends SampleBase {
     });
   }
 }
+
+}
+
