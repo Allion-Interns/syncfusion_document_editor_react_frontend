@@ -5,14 +5,17 @@ import {
   CustomToolbarItemModel,
   SfdtExport,
   Editor,
+  WordExport,
 } from "@syncfusion/ej2-react-documenteditor";
 import {
+  exportword,
   InitialDocumentTemplate,
   InitialDocumentTemplateWithImage,
 } from "../templates/InitialDocument";
 import { FindandReplacebuttonClick } from "./methodImplement";
 import { L10n } from "@syncfusion/ej2-base";
 import SearchedDocsList from "./SearchedDocsList";
+import { sendSfdt } from "../services/searchWordService";
 
 L10n.load({
   sv: {
@@ -204,7 +207,7 @@ L10n.load({
   },
 });
 
-DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport);
+DocumentEditorContainerComponent.Inject(Toolbar, SfdtExport, WordExport);
 
 export default class SyncfusionEditor extends SampleBase {
   public container: DocumentEditorContainerComponent =
@@ -244,9 +247,10 @@ export default class SyncfusionEditor extends SampleBase {
     this.container.documentEditor.spellChecker.allowSpellCheckAndSuggestion =
       true;
 
-    let initialDoc = InitialDocumentTemplateWithImage;
+    let initialDoc = exportword;
+    //await this.container.documentEditor.open(JSON.stringify(exportword));
     await this.setState({ initialDoc: initialDoc });
-    await this.container.documentEditor.open(initialDoc);
+    await this.container.documentEditor.open(JSON.stringify(initialDoc) );
 
     let styleJson: any = {
       type: "Character",
@@ -347,6 +351,10 @@ export default class SyncfusionEditor extends SampleBase {
           Doc 1
         </button>
         <button onClick={this.ondoc2Click.bind(this)}>Doc 2</button>
+        <button onClick={this.onsfdt}>sfdt send</button>
+        <button onClick={this.ongetsfdt}>Get SFDT </button>
+
+
         <br />
         <br />
         <input
@@ -360,24 +368,27 @@ export default class SyncfusionEditor extends SampleBase {
 
         <div style={{ display: "flex" }}>
           <div id="searchlist" style={{ display: "none" }}>
-            <SearchedDocsList text={this.state.searchText} container = {this.container}/>
+            <SearchedDocsList text={this.state.searchText} container={this.container} />
           </div>
-            <DocumentEditorContainerComponent
-              ref={(scope) => {
-                this.container = scope;
-              }}
-              id="container"
-              height={"90vh"}
-              toolbarItems={items}
-              toolbarClick={this.onToolbarClick.bind(this)}
-              //serviceUrl="https://localhost:44361/api/DocumentEditor/"
-              serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
-              enableToolbar={true}
-              selectionChange={this.onSelectionChange.bind(this)}
-              requestNavigate={this.requestNavigate.bind(this)}
-              enableSpellCheck={true}
-              locale={this.props.language ? "sv" : ""}
-            />
+          <DocumentEditorContainerComponent
+            ref={(scope) => {
+              this.container = scope;
+            }}
+            id="container"
+            height={"90vh"}
+            toolbarItems={items}
+            toolbarClick={this.onToolbarClick.bind(this)}
+            serviceUrl="https://localhost:44361/api/DocumentEditor/"
+            //serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
+            enableToolbar={true}
+            selectionChange={this.onSelectionChange.bind(this)}
+            requestNavigate={this.requestNavigate.bind(this)}
+            enableSpellCheck={true}
+            locale={this.props.language ? "sv" : ""}
+            enableWordExport={true}
+            enableSfdtExport={true}
+            enableTextExport={true}
+          />
         </div>
       </div>
     );
@@ -407,7 +418,16 @@ export default class SyncfusionEditor extends SampleBase {
 
     this.container.documentEditor.selection.select(startOffset, startOffset);
   }
+  onsfdt = async () => {
 
+    let a = await this.container.documentEditor.serialize();
+    let b = await sendSfdt(a);
+  }
+
+  ongetsfdt = async () => {
+    let result = this.container.documentEditor.serialize();
+    console.log(result);
+  }
   Savebuttonclick = async () => {
     let a = await this.container.documentEditor.serialize();
     let obj1 = JSON.parse(a);
@@ -441,7 +461,7 @@ export default class SyncfusionEditor extends SampleBase {
     if (this.state.isDocRestricted) {
     } else if (
       this.container.documentEditor.selection.contextType.indexOf("Header") >=
-        0 ||
+      0 ||
       this.container.documentEditor.selection.contextType.indexOf("Footer") >= 0
     ) {
       console.log(
