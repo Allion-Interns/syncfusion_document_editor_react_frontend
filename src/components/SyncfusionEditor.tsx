@@ -16,6 +16,7 @@ import { FindandReplacebuttonClick } from "./methodImplement";
 import { L10n } from "@syncfusion/ej2-base";
 import SearchedDocsList from "./SearchedDocsList";
 import { getAllDocuments } from "../services/TabelOfContentService";
+import { getDocument, getDocuments } from "../services/searchWordService";
 
 L10n.load({
   sv: {
@@ -224,7 +225,7 @@ export default class SyncfusionEditor extends SampleBase {
       documentsToSearch: [""],
       searchText: "",
       isPopupShow: false,
-      allDocs:[]
+      allDocs: []
     };
 
     // Add event listener for requestNavigate event to customize hyperlink navigation functionality.
@@ -299,8 +300,35 @@ export default class SyncfusionEditor extends SampleBase {
   searchWord() {
     //Open options pane.
     //this.container.documentEditor.showOptionsPane();
-    this.container.documentEditor.search.findAll("lorem");
+    // getDocuments(this.state.searchText).then((res) => {
+    //   this.setState({ docs: res.data });
+    //   console.log(res.data);
+    // });
+
+    this.container.documentEditor.search.findAll(this.state.searchText);
     this.showPopupDocumentList();
+    document.getElementById("searchlist");
+
+
+
+  }
+
+  async requestdatafromdb() {
+    let a;
+    await getDocuments('a').then((res) => {
+      a = res.data[0].path
+      console.log(a)
+    });
+
+    await getDocument(a).then((res) => {
+
+      this.container.documentEditor.open(JSON.stringify(res.data));
+
+    });
+
+
+
+
   }
 
   render() {
@@ -350,10 +378,13 @@ export default class SyncfusionEditor extends SampleBase {
         <button id="button" onClick={this.ondoc1Click.bind(this)}>
           Doc 1
         </button>
-        
+
         <button onClick={this.ondoc2Click.bind(this)}>Doc 2</button>
         <button onClick={this.loadTableofContentDocument.bind(this)}>
-         table of content
+          table of content
+        </button>
+        <button onClick={this.requestdatafromdb.bind(this)}>
+          request data
         </button>
         <br />
         <br />
@@ -370,6 +401,8 @@ export default class SyncfusionEditor extends SampleBase {
           <div id="searchlist" style={{ display: "none" }}>
             <SearchedDocsList text={this.state.searchText} container={this.container} />
           </div>
+        </div>
+        <div>
           <DocumentEditorContainerComponent
             ref={(scope) => {
               this.container = scope;
@@ -555,7 +588,7 @@ export default class SyncfusionEditor extends SampleBase {
   }
 
 
-  loadTableofContentDocument =()=>{
+  loadTableofContentDocument = () => {
     getAllDocuments().then((res) => {
       this.setState({ allDocs: res.data });
       console.log(res.data);
@@ -564,10 +597,10 @@ export default class SyncfusionEditor extends SampleBase {
     setTimeout(() => {
       this.container.documentEditor.open(tbContentDoc);
 
-      this.state.allDocs.map((data:string, index:number)=>{
+      this.state.allDocs.map((data: string, index: number) => {
 
         this.container.documentEditor.editor.insertText("\r\r");
-        this.container.documentEditor.editor.insertText(`${index+1}`+ "\t");
+        this.container.documentEditor.editor.insertText(`${index + 1}` + "\t");
 
         this.container.documentEditor.editor.insertHyperlink(
           `${data.path}`,
