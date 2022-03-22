@@ -401,8 +401,7 @@ export default class SyncfusionEditor extends SampleBase {
           <div id="searchlist" style={{ display: "none" }}>
             <SearchedDocsList text={this.state.searchText} container={this.container} />
           </div>
-        </div>
-        <div>
+
           <DocumentEditorContainerComponent
             ref={(scope) => {
               this.container = scope;
